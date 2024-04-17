@@ -1,0 +1,37 @@
+h3{
+    font-size: 70px !important;
+    font-weight: 700 !important;
+}
+.main-color{
+    color: #4CCD99;
+}
+.main-background-color{
+    background-color: #4CCD99 !important;
+}
+.background-color{
+    color : #DFF2EE;
+}
+.main-background{
+    background-color: #F5FFFD ;
+}
+.loginInputs{
+    margin-top: 100px;
+}
+.change-input-color{
+    background-color: #DFF2EE !important;
+    height: 66px !important;
+    width: 60% !important;
+    border-radius: 3px !important;
+    font-size: 20px !important;
+    font-weight: 500 !important;
+}
+::placeholder {
+    color: #9FBEB7 !important ; 
+  }
+.btn-login{
+    height: 66px !important;
+    width: 60% !important;
+    border-radius: 3px !important;
+    background-color: #4CCD99 !important;
+    
+}
