@@ -1,9 +1,6 @@
 .bg-form{
     background-color: #DFF2EE !important;
   }
-  
-  
-  
   .myInput::placeholder {
     color: #007F73 !important; 
     font-family: "Roboto" !important;
