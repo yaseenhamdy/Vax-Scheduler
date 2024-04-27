@@ -1,10 +1,144 @@
-import React from 'react'
+import React, { useState } from "react";
+import photo from "../../Images/photo.jpg";
+import style from "./Login.module.css";
+import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import axios from "axios";
+import { Bars } from "react-loader-spinner";
 
-export default function Login() {
+export default function Register() {
+  let user = {
+    Email: "",
+    Password: "",
+  };
+
+  let [ErrorMsg, setErrorMsg] = useState(null);
+  let [SuccessMse, setSuccessMsg] = useState(null);
+
+  let [IsLoading, setIsLoading] = useState(false);
+
+  let Navigat = useNavigate();
+
+  function checkValidate(values) {
+    const errors = {};
+
+    setErrorMsg(null);
+
+    if (!values.Email.includes("@") || !values.Email.includes(".")) {
+      errors.Email = "Invalid email. It should contain '@' and '.' ";
+    }
+
+    if (
+      !values.Password.match(
+        /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/
+      )
+    ) {
+      errors.Password =
+        "Invalid Password. It must contain at least one uppercase letter, one lowercase letter, one number, and one special character.";
+    }
+
+    return errors;
+  }
+
+  async function SendData(values) {
+    setIsLoading(true);
+    try {
+      let { data } = await axios.post(
+        "https://localhost:7127/api/Accounts/Login",
+        values
+      );
+
+      if (data?.status?.value === "Success" && data?.role === "Admin") {
+        console.log("inside if", data?.status?.value, data?.role);
+
+        setTimeout(function () {
+          Navigat("/admin");
+        }, 1000);
+        
+      }
+    } catch (error) {
+      console.error("API Error:", error);
+    }
+    setIsLoading(false);
+}
+
+
+  let formikObject = useFormik({
+    initialValues: user,
+    validate: checkValidate,
+    onSubmit: SendData,
+  });
+
   return (
     <>
-    <div>Login</div>
-    <h5>ahmed mohamed </h5>
+      <div className="container my-5 p-4">
+        <div className="row gx-5 d-flex align-items-center">
+          <div className="col-md-6 d-none d-md-block">
+            <img src={photo} className="w-100 vh-100" alt="" />
+          </div>
+
+          <div className="col-md-6">
+            <h1 className="text-center text-main fw-bold fs-1">Login Now </h1>
+            <form onSubmit={formikObject.handleSubmit}>
+              <input
+                type="email"
+                className={`form-control my-4 bg-form ${style.myInput} ${style["bg-form"]}`}
+                placeholder="Email"
+                name="Email"
+                id="Email"
+                value={formikObject.values.Email}
+                onChange={formikObject.handleChange}
+                onBlur={formikObject.handleBlur}
+              />
+              {formikObject.errors.Email && formikObject.touched.Email ? (
+                <div className="alert alert-danger mb-5">
+                  {formikObject.errors.Email}
+                </div>
+              ) : (
+                " "
+              )}
+
+              <input
+                type="password"
+                className={`form-control my-4 bg-form ${style.myInput} ${style["bg-form"]}`}
+                placeholder="Password"
+                name="Password"
+                id="Password"
+                value={formikObject.values.Password}
+                onChange={formikObject.handleChange}
+                onBlur={formikObject.handleBlur}
+              />
+              {formikObject.errors.Password && formikObject.touched.Password ? (
+                <div className="alert alert-danger mb-5">
+                  {formikObject.errors.Password}
+                </div>
+              ) : (
+                " "
+              )}
+
+<button
+  className="btn btn-success w-100 p-2"
+  type="submit"
+  disabled={!(formikObject.dirty && formikObject.isValid)}
+>
+  {IsLoading ? (
+    <Bars
+      height="90"
+      width="90"
+      color="#fff"
+      ariaLabel="bars-loading"
+      wrapperStyle={{}}
+      wrapperClass=""
+      visible={true}
+    />
+  ) : (
+    "Login Now"
+  )}
+</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </>
-  )
+  );
 }
