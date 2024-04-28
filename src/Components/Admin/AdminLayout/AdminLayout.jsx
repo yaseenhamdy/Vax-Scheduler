@@ -1,13 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
+import { authContext } from '../../../Context/AuthContext';
 
 export default function AdminLayout() {
   let Navigat = useNavigate();
 
+let {setAdminToken} =  useContext(authContext);
+
+
+
     function LogOut(){
-      
+      localStorage.removeItem("admintkn");
+      setAdminToken(null)
         Navigat('/login');
-        }
+      }
 
 return (
     <>
@@ -45,7 +51,7 @@ return (
     <div className="row">
     <div className="col-md-2">
       <div className='border border-5 p-4'>
-        <table className="table table-borderless">
+        <table className="table table-hover">
           <tbody>
             <tr className='text-center'>
               <td>
@@ -59,6 +65,24 @@ return (
               <td>
               <Link to="addVaccinecenters" style={{ textDecoration: 'none' }}>
       <h3 className='my-3'>Add Vaccine centers </h3>
+    </Link>
+              </td>
+            </tr>
+
+            <tr className='text-center'>
+              <td>
+              <Link to="allvaccines" style={{ textDecoration: 'none' }}>
+      <h3 className='my-3'>All Vaccines  </h3>
+    </Link>
+              </td>
+            </tr>
+
+
+            
+            <tr className='text-center'>
+              <td>
+              <Link to="addvaccine" style={{ textDecoration: 'none' }}>
+      <h3 className='my-3'>Add Vaccines  </h3>
     </Link>
               </td>
             </tr>

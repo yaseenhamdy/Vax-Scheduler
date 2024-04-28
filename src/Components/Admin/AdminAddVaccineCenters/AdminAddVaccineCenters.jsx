@@ -6,16 +6,23 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
+
+
 export default function AdminAddVaccineCenters() {
+
   let center = {
     name: "",
     email: "",
     password: "",
     location: "",
   }
+
+
+
   let [ErrorMsg, setErrorMsg] = useState(null);
-  let [IsLoading, setIsLoading] = useState(false);
   let Navigat = useNavigate();
+  
+  let [IsLoading, setIsLoading] = useState(false);
 
 
   function checkValidate(values) {
@@ -45,13 +52,11 @@ export default function AdminAddVaccineCenters() {
     }
     
 
-  
-
-   
-
     return errors;
   }
-//https://localhost:7127/api/VaccinationCenter/AddCenter
+  
+
+
   async function SendData(values) {
     setIsLoading(true);
     try {
@@ -64,6 +69,7 @@ export default function AdminAddVaccineCenters() {
       if(data?.status?.value==="Success" && data?.role==="Center"){
         console.log("center Added Succefully");
         //Store Token
+        
         Swal.fire({
           position: "center-center",
           icon: "success",
@@ -71,6 +77,7 @@ export default function AdminAddVaccineCenters() {
           showConfirmButton: false,
           timer: 1500
         });
+
         setTimeout(function () {
           Navigat("/admin/allvaccinecenters");
         }, 1000);
@@ -85,6 +92,9 @@ export default function AdminAddVaccineCenters() {
 }
 
 
+
+
+
   let formikObject = useFormik({
     initialValues: center,
     validate: checkValidate,
@@ -95,6 +105,7 @@ export default function AdminAddVaccineCenters() {
 
   return (
     <>
+
    <div className="container my-3">
     <h5 className='text-center fs-3'>Add New Vaccine Center</h5>
     {ErrorMsg ? (
@@ -104,6 +115,8 @@ export default function AdminAddVaccineCenters() {
           )}
           
     <form onSubmit={formikObject.handleSubmit}>
+
+
               <input
                 type="text"
                 className={`form-control my-4 bg-form ${style.myInput} ${style["bg-form"]}`}
@@ -114,6 +127,8 @@ export default function AdminAddVaccineCenters() {
                 onChange={formikObject.handleChange}
                 onBlur={formikObject.handleBlur}
               />
+
+
               {formikObject.errors.name && formikObject.touched.name ? (
                 <div className="alert alert-danger mb-5">
                   {formikObject.errors.name}
@@ -178,6 +193,8 @@ export default function AdminAddVaccineCenters() {
               ) : (
                 " "
               )}
+
+
 <button
   className="btn btn-success w-100 p-2"
   type="submit"
@@ -211,4 +228,6 @@ export default function AdminAddVaccineCenters() {
    </div>
     </>
   )
+
+
 }

@@ -1,10 +1,17 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Bars } from 'react-loader-spinner';
+import { NavLink } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 export default function AdminAllVaccineCenters() {
   const [allcenters, setAllCenters] = useState(null);
   const [isLoad, setIsLoad] = useState(false);
+
+  const handleUpdateClick = (centerId) => {
+    const updateUrl = `/admin/updatecenter/${centerId}`;
+    window.location.href = updateUrl; // Redirect to the update center URL
+  };
 
   async function getAllCenters() {
     setIsLoad(true);
@@ -13,11 +20,65 @@ export default function AdminAllVaccineCenters() {
       console.log(response?.data[0]);
       setAllCenters(response?.data);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      if(error.response.data.message===false){
+        setAllCenters([]);
+      }
+      console.error("Error fetching data get all centers:", error);
     } finally {
       setIsLoad(false); 
     }
   }
+
+
+
+async function deleteCenter(centerId) {
+ 
+
+  try {
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    });
+
+    if (result.isConfirmed) {
+      setIsLoad(true);
+      const response = await axios.delete("https://localhost:7127/api/VaccinationCenter", {
+        data: {
+          id: centerId
+        }
+      });
+
+      if (response.data.message === true) {
+        await getAllCenters(); // Assuming getAllCenters is an asynchronous function
+        Swal.fire({
+          title: "Deleted!",
+          text: "Center has been deleted.",
+          icon: "success"
+        });
+      } else {
+        throw new Error("Failed to delete vaccination center");
+      }
+    }
+  } catch (error) {
+    console.error('Error deleting vaccination center:', error.message);
+    Swal.fire({
+      title: "Error",
+      text: "Failed to delete vaccination center.",
+      icon: "error"
+    });
+  } finally {
+    setIsLoad(false); // Ensure setIsLoad is set to false regardless of outcome
+  }
+}
+
+
+
+
 
   useEffect(() => {
     getAllCenters();
@@ -31,7 +92,7 @@ export default function AdminAllVaccineCenters() {
           <Bars
             height="190"
             width="190"
-            color="#fff"
+            color="#09c"
             ariaLabel="bars-loading"
             wrapperStyle={{}}
             wrapperClass=""
@@ -76,8 +137,13 @@ export default function AdminAllVaccineCenters() {
                         ))}
                       </ul>
                     </td>
-                    <td><button className='btn btn-warning'>Update</button></td>
-                    <td><button className='btn btn-danger'>Delete</button></td>
+                    <td>  <button
+        className='btn btn-warning'
+        onClick={() => handleUpdateClick(center.id)}
+      >
+        Update
+      </button></td>
+                    <td><button className='btn btn-danger' onClick={()=>deleteCenter(center.id)}>Delete</button></td>
                   </tr>
                 ))}
               </tbody>
