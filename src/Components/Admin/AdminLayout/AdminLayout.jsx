@@ -87,6 +87,15 @@ return (
               </td>
             </tr>
 
+
+            <tr className='text-center'>
+              <td>
+              <Link to="waitingpatients" style={{ textDecoration: 'none' }}>
+      <h3 className='my-3'>Waiting  Patients  </h3>
+    </Link>
+              </td>
+            </tr>
+
            
 
 

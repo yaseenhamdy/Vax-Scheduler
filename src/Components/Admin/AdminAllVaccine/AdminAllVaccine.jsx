@@ -1,15 +1,18 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Bars } from 'react-loader-spinner';
 import Swal from 'sweetalert2';
+import { authContext } from '../../../Context/AuthContext';
 
 export default function AdminAllVaccine() {
+  
+  let {AdminToken} = useContext(authContext);
 
 
   const [allvaccines, setallvaccines] = useState(null);
   const [isLoad, setIsLoad] = useState(false);
 
-  async function getAllvaccines() {
+async function getAllvaccines() {
     setIsLoad(true);
     try {
       const response = await axios.get("https://localhost:7127/api/Vaccine");
@@ -26,7 +29,7 @@ export default function AdminAllVaccine() {
     } finally {
       setIsLoad(false); 
     }
-  }
+}
 
   async function deleteVaccine(VaccineId) {
  
@@ -41,29 +44,42 @@ export default function AdminAllVaccine() {
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, delete it!"
       });
-  
+
       if (result.isConfirmed) {
         setIsLoad(true);
+
+
         const response = await axios.delete("https://localhost:7127/api/Vaccine", {
+          headers: {
+            Authorization: `Bearer ${AdminToken}`
+          },
           data: {
             id: VaccineId
           }
         });
-  
+
+
+
+
+
+
         if (response.data.message === true) {
+
           await getAllvaccines(); // Assuming getAllCenters is an asynchronous function
           Swal.fire({
             title: "Deleted!",
             text: "Center has been deleted.",
             icon: "success"
           });
+
+          
         } else {
           throw new Error("Failed to delete vaccination center");
         }
       }
     } catch (error) {
-    
-      
+
+
       console.error('Error deleting vaccination center:', error.message);
       Swal.fire({
         title: "Error",
@@ -74,6 +90,9 @@ export default function AdminAllVaccine() {
       setIsLoad(false); // Ensure setIsLoad is set to false regardless of outcome
     }
   }
+
+
+  
 
 
   useEffect(() => {

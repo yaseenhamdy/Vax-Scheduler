@@ -1,13 +1,16 @@
 import axios from 'axios';
 import { useFormik } from 'formik';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Bars } from 'react-loader-spinner';
 import { useNavigate, useParams } from 'react-router-dom';
 import style from './UpdateCenter.module.css';
 import Swal from 'sweetalert2';
+import { authContext } from '../../../Context/AuthContext';
 
 
 export default function UpdateCenter() {
+  let {AdminToken} = useContext(authContext);
+
   const { id } = useParams();
   const [centerdata, setCenterdata] = useState({});
   const [isLoad, setIsLoad] = useState(false);
@@ -17,7 +20,11 @@ export default function UpdateCenter() {
   async function getACenterById(id) {
     setIsLoad(true);
     try {
-      const response = await axios.get(`https://localhost:7127/api/VaccinationCenter/${id}`);
+      const response = await axios.get(`https://localhost:7127/api/VaccinationCenter/${id}`,{
+        headers :{
+          Authorization: `Bearer ${AdminToken}`
+        }
+      });
       setCenterdata(response.data);
       console.log("call api get one center", response?.data);
     } catch (error) {
@@ -72,6 +79,8 @@ export default function UpdateCenter() {
 
     return errors;
   }
+
+
   let [IsLoading, setIsLoading] = useState(false);
 
   let Navigat = useNavigate();
@@ -82,7 +91,11 @@ export default function UpdateCenter() {
         try {
                   let { data } = await axios.put(
                     `https://localhost:7127/api/VaccinationCenter/${id}`,
-                    values
+                    values , {
+                      headers :{
+                        Authorization: `Bearer ${AdminToken}`
+                      }
+                    }
                   );
 
                   if(data?.status?.value==="Success" && data?.role==="Center"){
@@ -104,8 +117,8 @@ export default function UpdateCenter() {
                           
                     
                         } catch (error) {
-                          // console.error("API Error:", error.response.data.value);
-                          setErrorMsg(error.response.data.value);
+                           console.error("API Error:", error);
+                          //setErrorMsg(error.response.data.value);
                         }
                         setIsLoading(false);
 

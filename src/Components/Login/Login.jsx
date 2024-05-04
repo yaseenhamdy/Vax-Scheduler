@@ -67,21 +67,24 @@ let {setAdminToken} =  useContext(authContext);
         
       }
     } catch (error) {
-      console.error("API Error:", error);
+      console.error("API Error:", error.response.data.value);
+      setErrorMsg(error.response.data.value)
     }
     setIsLoading(false);
 }
 
 
-  let formikObject = useFormik({
-    initialValues: user,
-    validate: checkValidate,
-    onSubmit: SendData,
-  });
+let formikObject = useFormik({
+  initialValues: user,
+  validate: checkValidate,
+  onSubmit: SendData,
+});
 
-  return (
-    <>
-      <div className="container my-5 p-4">
+
+
+return (
+  <>
+      <div className="container-fluid overflow-x-hidden ">
         <div className="row gx-5 d-flex align-items-center">
           <div className="col-md-6 d-none d-md-block">
             <img src={photo} className="w-100 vh-100" alt="" />
@@ -90,6 +93,13 @@ let {setAdminToken} =  useContext(authContext);
           <div className="col-md-6">
             <h1 className="text-center text-main fw-bold fs-1">Login Now </h1>
             <form onSubmit={formikObject.handleSubmit}>
+            {ErrorMsg ? (
+            <div className="alert alert-danger fs-4 fw-bold">{ErrorMsg}</div>
+          ) : (
+            ""
+          )}
+
+
               <input
                 type="email"
                 className={`form-control my-4 bg-form ${style.myInput} ${style["bg-form"]}`}

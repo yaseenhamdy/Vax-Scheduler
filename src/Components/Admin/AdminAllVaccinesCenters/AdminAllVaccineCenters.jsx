@@ -1,12 +1,16 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Bars } from 'react-loader-spinner';
 import { NavLink } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { authContext } from '../../../Context/AuthContext';
 
 export default function AdminAllVaccineCenters() {
   const [allcenters, setAllCenters] = useState(null);
   const [isLoad, setIsLoad] = useState(false);
+
+  let {AdminToken} = useContext(authContext);
+  
 
   const handleUpdateClick = (centerId) => {
     const updateUrl = `/admin/updatecenter/${centerId}`;
@@ -32,6 +36,8 @@ export default function AdminAllVaccineCenters() {
 
 
 async function deleteCenter(centerId) {
+
+
  
 
   try {
@@ -47,11 +53,18 @@ async function deleteCenter(centerId) {
 
     if (result.isConfirmed) {
       setIsLoad(true);
+
       const response = await axios.delete("https://localhost:7127/api/VaccinationCenter", {
+        headers: {
+          Authorization: `Bearer ${AdminToken}`
+        },
         data: {
           id: centerId
         }
       });
+
+
+
 
       if (response.data.message === true) {
         await getAllCenters(); // Assuming getAllCenters is an asynchronous function
@@ -72,9 +85,35 @@ async function deleteCenter(centerId) {
       icon: "error"
     });
   } finally {
-    setIsLoad(false); // Ensure setIsLoad is set to false regardless of outcome
+    setIsLoad(false); 
   }
 }
+
+// let [oned,setoned] = useState(null);
+// async function GetOneCenter(centerId) {
+//   try {
+//     setIsLoad(true);
+//     let response = await axios.get(`https://localhost:7127/api/VaccinationCenter/${centerId}`, {
+//       headers: {
+//         Authorization: `Bearer ${AdminToken}`
+//       }
+//     });
+//     console.log(response?.data);
+//     setoned(response?.data);
+//     setIsLoad(false);
+//     sendData();
+//   } catch (error) {
+//     console.error('Error fetching vaccination center:', error);
+//     // Handle the error gracefully here (e.g., show error message to the user)
+//     setIsLoad(false);
+//   }
+// }
+
+//  function sendData(){
+//    console.log("Loging to send",oned);
+// }
+
+
 
 
 
@@ -120,6 +159,7 @@ async function deleteCenter(centerId) {
                   <th className="p-2 fs-4">Vaccine Names</th>
                   <th className="p-2 fs-4">Update</th>
                   <th className="p-2 fs-4">Delete</th>
+                  {/* <th className="p-2 fs-4">Test</th> */}
                 </tr>
               </thead>
               <tbody className='fs-5'>
@@ -144,7 +184,15 @@ async function deleteCenter(centerId) {
         Update
       </button></td>
                     <td><button className='btn btn-danger' onClick={()=>deleteCenter(center.id)}>Delete</button></td>
+
+
+                    {/* <td><button className='btn btn-danger' onClick={()=>GetOneCenter(center.id)}>Test</button></td> */}
+
+                  
+
+
                   </tr>
+                  
                 ))}
               </tbody>
             </table>

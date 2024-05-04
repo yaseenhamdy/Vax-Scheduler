@@ -1,10 +1,11 @@
 import { useFormik } from 'formik';
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import style from './AdminAddVaccineCenters.module.css'
 import { Bars } from 'react-loader-spinner';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { authContext } from '../../../Context/AuthContext';
 
 
 
@@ -17,6 +18,8 @@ export default function AdminAddVaccineCenters() {
     location: "",
   }
 
+  let {AdminToken} = useContext(authContext);
+  console.log(AdminToken);
 
 
   let [ErrorMsg, setErrorMsg] = useState(null);
@@ -62,8 +65,14 @@ export default function AdminAddVaccineCenters() {
     try {
       let { data } = await axios.post(
         "https://localhost:7127/api/VaccinationCenter/AddCenter",
-        values
+        values,
+        {
+          headers : {
+            Authorization: `Bearer ${AdminToken}`
+          }
+        }
       );
+
 
 
       if(data?.status?.value==="Success" && data?.role==="Center"){

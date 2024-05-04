@@ -14,6 +14,7 @@ import AdminRoute from './Components/Admin/AdminRoute/AdminRoute';
 import AdminAllVaccine from './Components/Admin/AdminAllVaccine/AdminAllVaccine';
 import AdminAddVaccine from './Components/Admin/AdminAddVaccine/AdminAddVaccine';
 import UpdateCenter from './Components/Admin/AdminUpdateCenter/UpdateCenter';
+import Waiting from './Components/Admin/GetWaitingPatient/Waiting';
 
 
 
@@ -35,6 +36,9 @@ let route = createBrowserRouter([
         { path: 'allvaccines', element: <AdminRoute>  <AdminAllVaccine />  </AdminRoute> }, 
         { path: 'addvaccine', element: <AdminRoute>  <AdminAddVaccine />  </AdminRoute> }, 
         { path: 'updatecenter/:id', element: <AdminRoute>  <UpdateCenter />  </AdminRoute> }, 
+        { path: 'waitingpatients', element: <AdminRoute><Waiting /> </AdminRoute>  }, 
+
+        
       ],
     },
   ]);

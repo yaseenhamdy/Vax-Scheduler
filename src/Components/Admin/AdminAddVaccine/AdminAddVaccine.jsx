@@ -1,14 +1,16 @@
 import { Field, FieldArray, useFormik } from "formik";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import style from "./AddVaccine.module.css";
 import { Bars } from "react-loader-spinner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { authContext } from "../../../Context/AuthContext";
 
 export default function AdminAddVaccine() {
 
 
+  let {AdminToken} = useContext(authContext);
 
 
 
@@ -60,7 +62,11 @@ export default function AdminAddVaccine() {
     try {
       let { data } = await axios.post(
         "https://localhost:7127/api/Vaccine/AddVaccine",
-        values
+        values,{
+          headers :{
+            Authorization: `Bearer ${AdminToken}`
+          }
+        }
       );
 
 
