@@ -15,6 +15,16 @@ import AdminAllVaccine from './Components/Admin/AdminAllVaccine/AdminAllVaccine'
 import AdminAddVaccine from './Components/Admin/AdminAddVaccine/AdminAddVaccine';
 import UpdateCenter from './Components/Admin/AdminUpdateCenter/UpdateCenter';
 import Waiting from './Components/Admin/GetWaitingPatient/Waiting';
+import CenterLayout from './Components/Center/CenterLayout/CenterLayout';
+import CenterWaiting from './Components/Center/CenterWaiting/CenterWaiting';
+import CenterRoute from './Components/Center/CenterRoute/CenterRoute';
+import Home from './Components/Patient/PatientHome/Home';
+
+
+
+
+
+
 
 
 
@@ -26,13 +36,22 @@ let route = createBrowserRouter([
     { path: '/', element: <Login /> },
     { path: 'login', element: <Login /> },
     { path: 'register', element: <Register /> },
+    { path: 'home', element: <Home /> },
+
+
+   
+
+
     {
       path: 'admin',
       element: <AdminRoute>  <AdminLayout /> </AdminRoute>,
       children: [
         { path: '', element: <AdminRoute>  <AdminAllVaccineCenters />  </AdminRoute> }, 
         { path: 'allvaccinecenters', element: <AdminRoute><AdminAllVaccineCenters /> </AdminRoute>  }, 
+
+
         { path: 'addVaccinecenters', element: <AdminRoute>  <AdminAddVaccineCenters />  </AdminRoute> }, 
+
         { path: 'allvaccines', element: <AdminRoute>  <AdminAllVaccine />  </AdminRoute> }, 
         { path: 'addvaccine', element: <AdminRoute>  <AdminAddVaccine />  </AdminRoute> }, 
         { path: 'updatecenter/:id', element: <AdminRoute>  <UpdateCenter />  </AdminRoute> }, 
@@ -41,6 +60,23 @@ let route = createBrowserRouter([
         
       ],
     },
+
+
+    {
+      path:'center',
+      element:  <CenterRoute> <CenterLayout/> </CenterRoute> ,
+      children:[
+       { path:'' ,element : <CenterRoute> <CenterWaiting/>  </CenterRoute>   },
+       { path:'AllWaitingPatients' ,element : <CenterRoute> <CenterWaiting/>  </CenterRoute>   },
+      ]
+    }
+
+    
+
+    
+
+
+   
   ]);
   
 

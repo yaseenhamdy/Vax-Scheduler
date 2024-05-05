@@ -2,18 +2,20 @@ import React, { useContext } from 'react'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 import { authContext } from '../../../Context/AuthContext';
 
-export default function AdminLayout() {
+export default function CenterLayout() {
   let Navigat = useNavigate();
 
-let {setAdminToken} =  useContext(authContext);
+ let {setCenterToken} =  useContext(authContext);
 
 
 
     function LogOut(){
-      localStorage.removeItem("admintkn");
-      setAdminToken(null)
+      localStorage.removeItem("centertkn");
+      setCenterToken(null)
         Navigat('/login');
       }
+
+
 
       
 
@@ -57,46 +59,22 @@ return (
           <tbody>
             <tr className='text-center'>
               <td>
-              <Link to="allvaccinecenters" style={{ textDecoration: 'none' }}>
-      <h3 className='my-3'>All Vaccines Centers</h3>
+              <Link to="AllWaitingPatients" style={{ textDecoration: 'none' }}>
+      <h3 className='my-3'>All Waiting Patients</h3>
     </Link>
               </td>
             </tr>
 
-            <tr className='text-center'>
-              <td>
-              <Link to="addVaccinecenters" style={{ textDecoration: 'none' }}>
-      <h3 className='my-3'>Add Vaccine centers </h3>
-    </Link>
-              </td>
-            </tr>
 
-            <tr className='text-center'>
-              <td>
-              <Link to="allvaccines" style={{ textDecoration: 'none' }}>
-      <h3 className='my-3'>All Vaccines  </h3>
-    </Link>
-              </td>
-            </tr>
+
+
 
 
             
-            <tr className='text-center'>
-              <td>
-              <Link to="addvaccine" style={{ textDecoration: 'none' }}>
-      <h3 className='my-3'>Add Vaccines  </h3>
-    </Link>
-              </td>
-            </tr>
 
 
-            <tr className='text-center'>
-              <td>
-              <Link to="waitingpatients" style={{ textDecoration: 'none' }}>
-      <h3 className='my-3'>Waiting  Patients  </h3>
-    </Link>
-              </td>
-            </tr>
+
+
 
            
 

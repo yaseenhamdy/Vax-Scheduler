@@ -177,7 +177,9 @@ async function deleteCenter(centerId) {
                         ))}
                       </ul>
                     </td>
-                    <td>  <button
+                    <td>
+                      
+                        <button
         className='btn btn-warning'
         onClick={() => handleUpdateClick(center.id)}
       >

@@ -6,19 +6,29 @@ export function AuthProvider({children}){
 
 
 let[AdminToken , setAdminToken] = useState(null); 
+let[CenterToken , setCenterToken] = useState(null); 
+let[patiToken , setpatiToken] = useState(null); 
 
 
 useEffect (function(){
+
     if(localStorage.getItem('admintkn') !==null){
     setAdminToken(localStorage.getItem('admintkn'))
     }
+
+
+    if(localStorage.getItem('centertkn') !==null){
+        setCenterToken(localStorage.getItem('centertkn'))
+        }
+
+
 })
 
 
 
 
 
-return<authContext.Provider  value={  {AdminToken , setAdminToken }}>   
+return<authContext.Provider  value={  {AdminToken , setAdminToken , CenterToken , setCenterToken , patiToken , setpatiToken  }  }>   
 
 {children}
 </authContext.Provider>

@@ -1,7 +1,12 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
+
+
 import { Bars } from 'react-loader-spinner';
 import Swal from 'sweetalert2';
+
+
+
 import { authContext } from '../../../Context/AuthContext';
 
 export default function AdminAllVaccine() {
@@ -9,18 +14,25 @@ export default function AdminAllVaccine() {
   let {AdminToken} = useContext(authContext);
 
 
+
   const [allvaccines, setallvaccines] = useState(null);
   const [isLoad, setIsLoad] = useState(false);
 
 async function getAllvaccines() {
+
+
     setIsLoad(true);
+
+
     try {
       const response = await axios.get("https://localhost:7127/api/Vaccine");
 
-      console.log(response?.data[0]);
       setallvaccines(response?.data);
 
-    } catch (error) {
+    } 
+    
+    
+    catch (error) {
       // console.error("Error fetching data:", error);
       if(error.response.data.message===false){
         setallvaccines([]);
@@ -30,6 +42,10 @@ async function getAllvaccines() {
       setIsLoad(false); 
     }
 }
+
+
+
+
 
   async function deleteVaccine(VaccineId) {
  
@@ -140,9 +156,21 @@ async function getAllvaccines() {
                 </tr>
 
               </thead>
+
+
+
+
+
+
+
+
+
+
+
               <tbody className='fs-5'>
                 {allvaccines?.map((vac, index) => (
                   <tr key={index}>
+
                     <td>{vac.id}</td>
                     <td>{vac.name}</td>
                     <td>{vac.durationBetweenDoses}</td>
@@ -162,6 +190,10 @@ async function getAllvaccines() {
                   </tr>
                 ))}
               </tbody>
+
+
+
+
             </table>
           </div>
         </div>

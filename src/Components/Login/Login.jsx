@@ -9,7 +9,7 @@ import { authContext } from "../../Context/AuthContext";
 
 export default function Register() {
 
-let {setAdminToken} =  useContext(authContext);
+let {setAdminToken , setCenterToken  ,setpatiToken } =  useContext(authContext);
 
 
   let user = {
@@ -54,18 +54,43 @@ let {setAdminToken} =  useContext(authContext);
       );
 
       if (data?.status?.value === "Success" && data?.role === "Admin") {
-        // console.log("inside if", data?.status?.value, data?.role);
-        // console.log(data);
+
 
         localStorage.setItem("admintkn",data?.token);
         setAdminToken(data?.token);
-
-
         setTimeout(function () {
           Navigat("/admin");
         }, 1000);
-        
       }
+
+      if (data?.status?.value === "Success" && data?.role === "Center") {
+
+
+        localStorage.setItem("centertkn",data?.token);
+        setCenterToken(data?.token);
+        
+
+
+        setTimeout(function () {
+          Navigat("/center");
+        }, 1000);
+      }
+
+
+      if (data?.status?.value === "Success" && data?.role === "Patient") {
+
+
+        localStorage.setItem("patitoken",data?.token);
+        setpatiToken(data?.token);
+        
+
+
+        setTimeout(function () {
+          Navigat("/home");
+        }, 1000);
+      }
+
+
     } catch (error) {
       console.error("API Error:", error.response.data.value);
       setErrorMsg(error.response.data.value)

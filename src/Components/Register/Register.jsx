@@ -62,6 +62,7 @@ export default function Register() {
 
   async function SendData(values) {
     setIsLoading(true);
+    console.log(values);
 
     try {
       let { data } = await axios.post(
@@ -167,7 +168,7 @@ export default function Register() {
               )}
 
 <input
-                type="tel"
+                type="text"
                 className={`form-control my-4 bg-form ${style.myInput} ${style["bg-form"]}`}
                 placeholder="Phone"
                 name="phone"
@@ -185,7 +186,7 @@ export default function Register() {
               )}
 
 <input
-                type="password"
+                type="text"
                 className={`form-control my-4 bg-form ${style.myInput} ${style["bg-form"]}`}
                 placeholder="Password"
                 name="password"
