@@ -14,12 +14,12 @@ export default function AdminAddVaccine() {
 
 
 
-  let vaccine = {
+let vaccine = {
     name: "",
     durationBetweenDoses: "",
     precautions: "",
     vaccinationCenterIds:[],
-  };
+};
 
 
 
@@ -109,7 +109,7 @@ async function getAllCenters() {
     } finally {
         setlaoaCenter(false); 
     }
-  }
+}
   
 
   
@@ -220,9 +220,13 @@ async function getAllCenters() {
 
 <h2 className="text-center fw-bold">Designate places where this vaccine can be obtained </h2>
 
+
+
 {laoaCenter === true ? (
   <h5>Load</h5>
-) : (
+) : 
+
+(
   allcenters?.map((center, index) => (
     <div key={index}>
 

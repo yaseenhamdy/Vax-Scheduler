@@ -14,7 +14,7 @@ export default function AdminAllVaccineCenters() {
 
   const handleUpdateClick = (centerId) => {
     const updateUrl = `/admin/updatecenter/${centerId}`;
-    window.location.href = updateUrl; // Redirect to the update center URL
+    window.location.href = updateUrl; 
   };
 
   async function getAllCenters() {

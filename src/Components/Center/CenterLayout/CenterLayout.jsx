@@ -11,6 +11,7 @@ export default function CenterLayout() {
 
     function LogOut(){
       localStorage.removeItem("centertkn");
+      localStorage.removeItem("centerid");
       setCenterToken(null)
         Navigat('/login');
       }
@@ -60,7 +61,16 @@ return (
             <tr className='text-center'>
               <td>
               <Link to="AllWaitingPatients" style={{ textDecoration: 'none' }}>
-      <h3 className='my-3'>All Waiting Patients</h3>
+      <h3 className='my-3'>Waiting Patients</h3>
+    </Link>
+              </td>
+            </tr>
+
+
+            <tr className='text-center'>
+              <td>
+              <Link to="centerpatients" style={{ textDecoration: 'none' }}>
+      <h3 className='my-3'>Center Patients</h3>
     </Link>
               </td>
             </tr>

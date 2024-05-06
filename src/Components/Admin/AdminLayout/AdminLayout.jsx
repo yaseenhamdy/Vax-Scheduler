@@ -58,7 +58,7 @@ return (
             <tr className='text-center'>
               <td>
               <Link to="allvaccinecenters" style={{ textDecoration: 'none' }}>
-      <h3 className='my-3'>All Vaccines Centers</h3>
+      <h3 className='my-3'>All  Centers</h3>
     </Link>
               </td>
             </tr>
@@ -66,7 +66,7 @@ return (
             <tr className='text-center'>
               <td>
               <Link to="addVaccinecenters" style={{ textDecoration: 'none' }}>
-      <h3 className='my-3'>Add Vaccine centers </h3>
+      <h3 className='my-3'>Add  Centers </h3>
     </Link>
               </td>
             </tr>

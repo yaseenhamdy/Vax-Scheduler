@@ -35,6 +35,8 @@ setCenterId(localStorage.getItem("centerid"))
     getAllvaccines();
   }, [CenterId]); 
 
+
+
   if (allwaiting && allwaiting?.length === 0) {
     return (
       <>
@@ -52,6 +54,8 @@ setCenterId(localStorage.getItem("centerid"))
 
   return (
     <>
+
+
       {isLoad ? (
         <div className="vh-100 d-flex align-items-center justify-content-center">
           <Bars height="190" width="190" color="#fff" />
@@ -130,6 +134,8 @@ setCenterId(localStorage.getItem("centerid"))
           </div>
         </div>
       )}
+
+      
     </>
   );
 }

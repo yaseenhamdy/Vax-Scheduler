@@ -39,7 +39,7 @@ export default function UpdateCenter() {
   }, [id]);
 
 
-  const formikObject = useFormik({
+const formikObject = useFormik({
     initialValues: {
       name: '',
       email: '',
@@ -52,7 +52,7 @@ export default function UpdateCenter() {
 
 
 
-  function checkValidate(values) {
+function checkValidate(values) {
     const errors = {};
 
     setErrorMsg(null);
@@ -78,7 +78,8 @@ export default function UpdateCenter() {
     }
 
     return errors;
-  }
+}
+
 
 
   let [IsLoading, setIsLoading] = useState(false);
@@ -86,7 +87,7 @@ export default function UpdateCenter() {
   let Navigat = useNavigate();
 
 
-    async function SendData(values) {
+async function SendData(values) {
         setIsLoading(true);
         try {
                   let { data } = await axios.put(
@@ -99,7 +100,7 @@ export default function UpdateCenter() {
                   );
 
                   if(data?.status?.value==="Success" && data?.role==="Center"){
-                            console.log("center Added Succefully");
+                           
                            
                             
                             Swal.fire({
@@ -123,7 +124,7 @@ export default function UpdateCenter() {
                         setIsLoading(false);
 
 
-    }
+}
 
 
 

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { authContext } from '../../../Context/AuthContext';
 
 export default function Navbar() {
@@ -36,7 +36,7 @@ let {setpatiToken} =  useContext(authContext)
         </li>
        
         <li className="nav-item">
-          <a className="nav-link" href="#"><button className='btn btn-danger' onClick={LogOut}> LogOut</button></a>
+          <Link className="nav-link" href="#"><button className='btn btn-danger' onClick={LogOut}> LogOut</button></Link>
         </li>
 
 

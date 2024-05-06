@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import photo from "../../Images/photo.jpg";
 import style from "./Login.module.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import axios from "axios";
 import { Bars } from "react-loader-spinner";
@@ -185,6 +185,8 @@ return (
     "Login Now"
   )}
 </button>
+<h5 className="text-center mt-5"> You don't Have Account ?  <Link className="text-success" to="/register"> Create Account </Link> </h5>
+
             </form>
           </div>
         </div>

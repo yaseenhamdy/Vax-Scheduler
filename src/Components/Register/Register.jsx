@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import photo from "../../Images/photo.jpg";
 import style from "./Register.module.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import axios from "axios";
 import { Bars } from "react-loader-spinner";
@@ -97,13 +97,13 @@ export default function Register() {
 
   return (
     <>
-      <div className="container-fluid my-5">
+      <div className="container-fluid  overflow-x-hidden">
         <div className="row gx-5 d-flex align-items-center">
           <div className="col-md-6 d-none d-md-block">
             <img src={photo} className="w-100 vh-100" alt="" />
           </div>
 
-          <div className="col-md-6">
+          <div className="col-md-6 px-5">
             <h1 className="text-center text-main fw-bold fs-1">Sign Up </h1>
 
             <form onSubmit={formikObject.handleSubmit}>
@@ -225,6 +225,9 @@ export default function Register() {
     "Register Now"
   )}
 </button>
+
+<h5 className="text-center mt-5"> Already Have an Account ?  <Link className="text-success" to="/login"> Login Now </Link> </h5>
+
 
 
             </form>
