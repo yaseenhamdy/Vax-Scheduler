@@ -62,6 +62,7 @@ let vaccine = {
   }
 
   async function SendData(values) {
+    console.log(values);
     setIsLoading(true);
     try {
       let { data } = await axios.post(
@@ -72,6 +73,7 @@ let vaccine = {
           }
         }
       );
+
 
 
       if(data?.status?.value==="Success"){
@@ -123,6 +125,9 @@ async function getAllCenters() {
     validate: checkValidate,
    onSubmit:SendData
   });
+
+
+  
 
 
 
