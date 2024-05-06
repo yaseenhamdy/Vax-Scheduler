@@ -14,7 +14,7 @@ let[patientDetails,setpatientDetails] = useState();
 
 let patientId = localStorage.getItem("patiid");
 
-
+let[vaccineArr,setvaccineArr] = useState([]);
 
 
 async function getPatientDetails() {
