@@ -14,27 +14,66 @@ let[patientDetails,setpatientDetails] = useState();
 
 let patientId = localStorage.getItem("patiid");
 
-let[vaccineArr,setvaccineArr] = useState([]);
+
+
+
+
+
+// async function getPatientDetails() {
+//   try {
+//     setIsLoad(true);
+//     let response = await axios.get(`https://localhost:7127/api/Patients/${patientId}`);
+//     //console.log(response?.data);
+//     setpatientDetails(response?.data)
+//     console.log("patient details",response?.data)
+//     setIsLoad(false);
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+
+// let [vaccineArr, setVaccineArr] = useState([]);
+
+// for (let i = 0; i < setpatientDetails?.vaccines?.length; i++) {
+//   if (setpatientDetails?.vaccines[i].secondDose === true) {
+//     setVaccineArr( vaccineArr => [...vaccineArr, setpatientDetails?.vaccines[i].vaccineId]);
+//     alert("Can't take more doses.");
+//   }
+// }
+
+// console.log(vaccineArr);
 
 
 async function getPatientDetails() {
   try {
     setIsLoad(true);
     let response = await axios.get(`https://localhost:7127/api/Patients/${patientId}`);
-    //console.log(response?.data);
-    setpatientDetails(response?.data)
-    console.log(response?.data)
+    setpatientDetails(response?.data);
+    console.log("patient details", response?.data);
     setIsLoad(false);
   } catch (error) {
     console.error(error);
   }
 }
 
-for(let i=0;i<setpatientDetails?.vaccines?.length;i++){
-  if(setpatientDetails?.vaccines[i].secondDose === true){
-    alert("cant't take more ")
+useEffect(() => {
+  getPatientDetails();
+}, []);
+
+let [vaccineArr, setVaccineArr] = useState([]);
+
+useEffect(() => {
+  if (setpatientDetails) {
+    for (let i = 0; i < setpatientDetails?.vaccines?.length; i++) {
+      if (setpatientDetails?.vaccines[i].secondDose === true) {
+        setVaccineArr(vaccineArr => [...vaccineArr, setpatientDetails?.vaccines[i].vaccineId]);
+        alert("Can't take more doses.");
+      }
+    }
   }
-}
+}, [setpatientDetails]);
+
+console.log(vaccineArr);
 
 
 
