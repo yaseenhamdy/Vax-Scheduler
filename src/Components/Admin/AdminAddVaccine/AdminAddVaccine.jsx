@@ -75,7 +75,7 @@ export default function AdminAddVaccine() {
 
 
       if(data?.status?.value==="Success"){
-        console.log("Vaccine Added Succefully");
+        //console.log("Vaccine Added Succefully");
         Swal.fire({
           position: "center-center",
           icon: "success",

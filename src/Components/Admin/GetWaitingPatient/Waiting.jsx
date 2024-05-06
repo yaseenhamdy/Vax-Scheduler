@@ -249,7 +249,7 @@ const Waiting = () => {
       }
     };
 
-    fetchWaitingPatients(); // Initial load of waiting patients
+    fetchWaitingPatients(); 
   }, [AdminToken]);
 
   const acceptUser = async (patientId) => {
@@ -262,6 +262,8 @@ const Waiting = () => {
       });
 
       const { name, ssn, email, phone, password } = response.data;
+
+      
 
       const acceptResponse = await axios.post(
         `https://localhost:7127/api/Accounts/AcceptUser`,

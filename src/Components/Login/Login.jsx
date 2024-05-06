@@ -9,7 +9,7 @@ import { authContext } from "../../Context/AuthContext";
 
 export default function Register() {
 
-let {setAdminToken , setCenterToken  ,setpatiToken } =  useContext(authContext);
+let {setAdminToken , setCenterToken  ,setpatiToken , setCenterId } =  useContext(authContext);
 
 
   let user = {
@@ -67,7 +67,11 @@ let {setAdminToken , setCenterToken  ,setpatiToken } =  useContext(authContext);
 
 
         localStorage.setItem("centertkn",data?.token);
+        localStorage.setItem("centerid",data?.id);
         setCenterToken(data?.token);
+        setCenterId(data?.id)
+
+
         
 
 
@@ -82,11 +86,12 @@ let {setAdminToken , setCenterToken  ,setpatiToken } =  useContext(authContext);
 
         localStorage.setItem("patitoken",data?.token);
         setpatiToken(data?.token);
+        localStorage.setItem("patiid",data?.id);
         
 
 
         setTimeout(function () {
-          Navigat("/home");
+          Navigat("/patient");
         }, 1000);
       }
 

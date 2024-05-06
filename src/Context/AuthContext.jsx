@@ -7,6 +7,11 @@ export function AuthProvider({children}){
 
 let[AdminToken , setAdminToken] = useState(null); 
 let[CenterToken , setCenterToken] = useState(null); 
+
+
+let[CenterId , setCenterId] = useState(null); 
+
+
 let[patiToken , setpatiToken] = useState(null); 
 
 
@@ -28,7 +33,7 @@ useEffect (function(){
 
 
 
-return<authContext.Provider  value={  {AdminToken , setAdminToken , CenterToken , setCenterToken , patiToken , setpatiToken  }  }>   
+return<authContext.Provider  value={  {AdminToken , setAdminToken , CenterToken , setCenterToken , patiToken , setpatiToken  , setCenterId ,CenterId  }  }>   
 
 {children}
 </authContext.Provider>

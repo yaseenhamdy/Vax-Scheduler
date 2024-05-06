@@ -19,6 +19,8 @@ import CenterLayout from './Components/Center/CenterLayout/CenterLayout';
 import CenterWaiting from './Components/Center/CenterWaiting/CenterWaiting';
 import CenterRoute from './Components/Center/CenterRoute/CenterRoute';
 import Home from './Components/Patient/PatientHome/Home';
+import PatientLayout from './Components/Patient/PatientLayout/PatientLayout';
+import PatientRoute from './Components/Patient/PatientRoute/PatientRoute';
 
 
 
@@ -34,12 +36,10 @@ function App() {
 
 let route = createBrowserRouter([
     { path: '/', element: <Login /> },
+
     { path: 'login', element: <Login /> },
     { path: 'register', element: <Register /> },
-    { path: 'home', element: <Home /> },
 
-
-   
 
 
     {
@@ -56,8 +56,6 @@ let route = createBrowserRouter([
         { path: 'addvaccine', element: <AdminRoute>  <AdminAddVaccine />  </AdminRoute> }, 
         { path: 'updatecenter/:id', element: <AdminRoute>  <UpdateCenter />  </AdminRoute> }, 
         { path: 'waitingpatients', element: <AdminRoute><Waiting /> </AdminRoute>  }, 
-
-        
       ],
     },
 
@@ -69,7 +67,18 @@ let route = createBrowserRouter([
        { path:'' ,element : <CenterRoute> <CenterWaiting/>  </CenterRoute>   },
        { path:'AllWaitingPatients' ,element : <CenterRoute> <CenterWaiting/>  </CenterRoute>   },
       ]
-    }
+    },
+
+    {
+      path:'patient',
+      element:<PatientRoute><PatientLayout/> </PatientRoute> ,
+      children:[
+        {path:'',element:<PatientRoute><Home/> </PatientRoute> },
+        {path:'home',element:<PatientRoute><Home/> </PatientRoute> },
+      ]
+}
+
+
 
     
 
