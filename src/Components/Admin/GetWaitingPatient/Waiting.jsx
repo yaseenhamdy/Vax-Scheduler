@@ -225,7 +225,7 @@ import { authContext } from '../../../Context/AuthContext';
 import axios from 'axios';
 import { Bars } from 'react-loader-spinner';
 import Swal from 'sweetalert2';
-
+import photo from "../../../Images/5640977_2941990.jpg"
 const Waiting = () => {
   const { AdminToken } = useContext(authContext);
   const [allWaiting, setAllWaiting] = useState([]);
@@ -347,9 +347,10 @@ const Waiting = () => {
   if( allWaiting.length === 0){
     return<>
     
-   <div className='vh-100 d-flex align-items-center justify-content-center'>
-    <h1>No waiting  Patients exists</h1>
+   <div className='vh-50 d-flex align-items-center justify-content-center'>
+   <img src={photo} className='w-50' alt="" />
    </div>
+   <h5 className='text-center'>No Waiting Patient Exists</h5>
    
    </>
   }

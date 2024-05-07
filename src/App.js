@@ -23,6 +23,8 @@ import PatientLayout from './Components/Patient/PatientLayout/PatientLayout';
 import PatientRoute from './Components/Patient/PatientRoute/PatientRoute';
 import CenterPatients from './Components/Center/CenterPatients/CenterPatients';
 import UpdateVaccine from './Components/Admin/UpdateVaccine/UpdateVaccine';
+import Certificates from './Components/Patient/Certificates/Certificates';
+import WaitCertificate from './Components/Center/WaitCertificate/WaitCertificate';
 
 
 
@@ -71,6 +73,7 @@ let route = createBrowserRouter([
        { path:'' ,element : <CenterRoute> <CenterWaiting/>  </CenterRoute>   },
        { path:'AllWaitingPatients' ,element : <CenterRoute> <CenterWaiting/>  </CenterRoute>   },
        { path:'centerpatients' ,element : <CenterRoute> <CenterPatients/>  </CenterRoute>   },
+       { path:'waitcertificate' ,element : <CenterRoute> <WaitCertificate/>  </CenterRoute>   },
       
       ]
     },
@@ -81,6 +84,7 @@ let route = createBrowserRouter([
       children:[
         {path:'',element:<PatientRoute><Home/> </PatientRoute> },
         {path:'home',element:<PatientRoute><Home/> </PatientRoute> },
+        {path:'certificate/:centerid/:vaccineid',element:<PatientRoute><Certificates/> </PatientRoute> },
       ]
 }
 

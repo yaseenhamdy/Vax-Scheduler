@@ -18,7 +18,7 @@ let {setpatiToken} =  useContext(authContext)
 
   return (
     <>
-    <nav className="navbar navbar-expand-lg bg-info">
+    <nav className="navbar navbar-expand-lg bg-success">
   <div className="container-fluid">
     <a className="navbar-brand" href="#">Navbar</a>
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,11 +32,11 @@ let {setpatiToken} =  useContext(authContext)
 
 
         <li className="nav-item">
-          <a className="nav-link" href="#">Link</a>
+      
         </li>
        
         <li className="nav-item">
-          <Link className="nav-link" href="#"><button className='btn btn-danger' onClick={LogOut}> LogOut</button></Link>
+          <Link className="nav-link"><button className='btn btn-danger' onClick={LogOut}> LogOut</button></Link>
         </li>
 
 

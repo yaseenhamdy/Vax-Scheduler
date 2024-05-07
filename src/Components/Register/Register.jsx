@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import axios from "axios";
 import { Bars } from "react-loader-spinner";
+import Swal from "sweetalert2";
+
 
 export default function Register() {
   let patient = {
@@ -72,8 +74,15 @@ export default function Register() {
       console.log(data.status.message);
       if(data.status.message===true){
         setTimeout(function () {
+          Swal.fire({
+            position: "center-center",
+            icon: "success",
+            title: "Waiing For Aprove From Admin ",
+            showConfirmButton: false,
+            timer: 1500
+          });
           Navigat("/login");
-        }, 1000);
+        }, 2000);
       }
 
     } catch (error) {
@@ -186,7 +195,7 @@ export default function Register() {
               )}
 
 <input
-                type="text"
+                type="password"
                 className={`form-control my-4 bg-form ${style.myInput} ${style["bg-form"]}`}
                 placeholder="Password"
                 name="password"

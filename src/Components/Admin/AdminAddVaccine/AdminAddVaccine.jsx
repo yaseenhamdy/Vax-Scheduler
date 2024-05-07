@@ -87,7 +87,7 @@ let vaccine = {
         });
         setTimeout(function () {
           Navigat("/admin/allvaccines");
-        }, 1000);
+        }, 1200);
       }
 
       

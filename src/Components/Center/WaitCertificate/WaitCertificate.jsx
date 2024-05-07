@@ -1,31 +1,29 @@
-import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Bars } from "react-loader-spinner";
-import photo from "../../../Images/Medical prescription-rafiki.png";
-import { authContext } from "../../../Context/AuthContext";
 import Swal from "sweetalert2";
 
-
-export default function CenterWaiting() {
-  const { CenterId , setCenterId } = useContext(authContext);
+export default function WaitCertificate() {
+  let CenterId = localStorage.getItem("centerid");
 
   const [allwaiting, setAllWaiting] = useState(null);
   const [isLoad, setIsLoad] = useState(false);
 
-setCenterId(localStorage.getItem("centerid"))
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [image, setimage] = useState(null);
 
   async function getAllvaccines() {
     setIsLoad(true);
 
     try {
       const response = await axios.get(
-        `https://localhost:7127/api/VaccinationCenter/GetAllWaitingDoses/${CenterId}`
+        `https://localhost:7127/api/VaccinationCenter/GetCertificateDetails/${CenterId}`
       );
-      setAllWaiting(response.data || []);
+      setAllWaiting(response?.data || []);
+      console.log(response?.data);
     } catch (error) {
       console.error("Error fetching waiting doses:", error);
-      setAllWaiting([]); 
-      
+      setAllWaiting([]);
     } finally {
       setIsLoad(false);
     }
@@ -33,29 +31,26 @@ setCenterId(localStorage.getItem("centerid"))
 
   useEffect(() => {
     getAllvaccines();
-  }, [CenterId]); 
+  }, [CenterId]);
 
 
 
-  if (allwaiting && allwaiting?.length === 0) {
-    return (
-      <>
-        <div className="vh-50 d-flex align-items-center justify-content-center">
-          <div className="d-flex align-items-center justify-content-center">
-            <img src={photo} className="w-50" alt="" />
-          </div>
-        </div>
-        <h4 className="fs-1 text-center">No Waiting Patients  For Take Doses Here</h4>
-      </>
-    );
-}
+  const handleFileChange = (event) => {
+    const file = event.target.files; // Get the first file from the selected files
+    setSelectedFile(file);
+    if (file && file.length > 0) {
+        setimage(file[0]?.name);
+    }
+};
 
 
+// async function deleteCertificate(){
+//   let {data} = axios.delete()
+// }
 
-  return (
+
+return (
     <>
-
-
       {isLoad ? (
         <div className="vh-100 d-flex align-items-center justify-content-center">
           <Bars height="190" width="190" color="#fff" />
@@ -68,65 +63,73 @@ setCenterId(localStorage.getItem("centerid"))
             </div>
             <div className="d-flex align-items-center justify-content-center">
               <h3 className="text-center fw-bold text-black my-4">
-              Waiting Patients  For Take Doses Here
+                All Waiting For Uplaod Certificate
               </h3>
             </div>
             <table className="table table-hover m-4 shadow-lg">
               <thead className="fs-3">
                 <tr>
-                  <th className="p-2 fs-4">Patient Id</th>
-                  <th className="p-2 fs-4">Name</th>
-                  <th className="p-2 fs-4">Email</th>
+                  <th className="p-2 fs-4">patientName</th>
+                  <th className="p-2 fs-4">patientEmail</th>
                   <th className="p-2 fs-4">VaccineName</th>
-                  <th className="p-2 fs-4">Vaccine Id</th>
-                  <th className="p-2 fs-4">Accept</th>
+
+                  <th className="p-2 fs-4">Upload</th>
+                  <th className="p-2 fs-4">Send</th>
                 </tr>
               </thead>
               <tbody className="fs-5">
                 {allwaiting?.map((vac, index) => (
                   <tr key={index}>
-                    <td>{vac.patientId}</td>
-                    <td>{vac.name}</td>
-                    <td>{vac.email}</td>
+                    <td>{vac.patientName}</td>
+                    <td>{vac.patientEmail}</td>
                     <td>{vac.vaccineName}</td>
-                    <td>{vac.vaccineId}</td>
-
 
                     <td>
-                      <button
+                      <input
+                        type="file"
                         className="btn btn-success"
+                        onChange={handleFileChange}
+                      />
+                    </td>
+
+                    <td className="p-2 fs-4">
+                      <button
+                        className="btn btn-warning"
                         onClick={async () => {
                           try {
                             const data = {
-                              patientId: vac.patientId,
-                              vaccineId: vac.vaccineId,
-                              vaccinationCenterId: CenterId,
+                              PatientId: vac.patientId,
+                              VaccineId: vac.vaccineId,
+                              VaccinationCenterId: CenterId,
+                              ImageUrl: image,
                             };
+
                             const response = await axios.post(
-                              "https://localhost:7127/api/VaccinationCenter/ApproveDoses",
+                              "https://localhost:7127/api/VaccinationCenter/UploadCertificate",
                               data
                             );
-                            if(response.data.message){
+                            console.log(response);
+                            if (response.data.message) {
                               Swal.fire({
                                 position: "center-center",
                                 icon: "success",
-                                title: "Patient Doses Approve  ",
+                                title: "Certification Uploaded Successfully  ",
                                 showConfirmButton: false,
-                                timer: 1500
+                                timer: 1500,
                               });
                             }
                             await getAllvaccines();
                           } catch (error) {
                             console.error("Error accepting vaccine:", error);
                           }
-                        }}
+                        }
+                      
+                      
+                      }
                       >
-                        Accept
+                        Send Certificate
                       </button>
                     </td>
-
-
-                    
                   </tr>
                 ))}
               </tbody>
@@ -134,8 +137,6 @@ setCenterId(localStorage.getItem("centerid"))
           </div>
         </div>
       )}
-
-      
     </>
   );
 }

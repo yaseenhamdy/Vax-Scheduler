@@ -76,6 +76,15 @@ return (
             </tr>
 
 
+            <tr className='text-center'>
+              <td>
+              <Link to="waitcertificate" style={{ textDecoration: 'none' }}>
+      <h3 className='my-3'>Waiting Certificate</h3>
+    </Link>
+              </td>
+            </tr>
+
+
 
 
 

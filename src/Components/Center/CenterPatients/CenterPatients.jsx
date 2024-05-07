@@ -74,7 +74,7 @@ let centerId = (localStorage.getItem("centerid"))
             </div>
             <div className="d-flex align-items-center justify-content-center">
               <h3 className="text-center fw-bold text-black my-4">
-                All  Patients
+                All  Patients in Our Center
               </h3>
             </div>
             <table className="table table-hover m-4 shadow-lg">
