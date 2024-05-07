@@ -17,7 +17,7 @@ export default function WaitCertificate() {
 
     try {
       const response = await axios.get(
-        `https://localhost:7127/api/VaccinationCenter/GetCertificateDetails/${CenterId}`
+        `https://localhost:7127/api/VaccinationCenter/CompletedVaccinations/${CenterId}`
       );
       setAllWaiting(response?.data || []);
       console.log(response?.data);
@@ -103,10 +103,19 @@ return (
                               VaccinationCenterId: CenterId,
                               ImageUrl: image,
                             };
+                            const data2 = {
+                              PatientId: vac.patientId,
+                              VaccineId: vac.vaccineId,
+                              VaccinationCenterId: CenterId,
+                            };
 
                             const response = await axios.post(
                               "https://localhost:7127/api/VaccinationCenter/UploadCertificate",
                               data
+                            );
+                            const response2 = await axios.put(
+                              "https://localhost:7127/api/VaccinationCenter/UpdateFlagShowCertificate",
+                              data2
                             );
                             console.log(response);
                             if (response.data.message) {
